@@ -102,11 +102,6 @@
   MemoryAllocationLib|MdePkg/Library/PeiMemoryAllocationLib/PeiMemoryAllocationLib.inf
   PcdLib|MdePkg/Library/PeiPcdLib/PeiPcdLib.inf
 
-  #######################################
-  # Silicon Initialization Package
-  #######################################
-  SmmAccessLib|IntelSiliconPkg/Feature/SmmAccess/Library/PeiSmmAccessLib/PeiSmmAccessLib.inf
-
 [LibraryClasses.common.DXE_CORE,LibraryClasses.common.DXE_SMM_DRIVER,LibraryClasses.common.SMM_CORE,LibraryClasses.common.DXE_DRIVER,LibraryClasses.common.DXE_RUNTIME_DRIVER,LibraryClasses.common.UEFI_DRIVER,LibraryClasses.common.UEFI_APPLICATION]
   #######################################
   # Edk2 Packages
@@ -158,7 +153,6 @@
   AdvancedFeaturePkg/Ipmi/IpmiInit/PeiIpmiInit.inf
   AdvancedFeaturePkg/Ipmi/OsWdt/OsWdt.inf
   AdvancedFeaturePkg/Ipmi/SolStatus/SolStatus.inf
-  AdvancedFeaturePkg/S3/S3Pei.inf
   AdvancedFeaturePkg/Smbios/SmbiosBasicDxe/SmbiosBasicDxe.inf
 
 [BuildOptions]

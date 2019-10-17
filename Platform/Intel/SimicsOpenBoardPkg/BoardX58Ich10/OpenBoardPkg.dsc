@@ -34,16 +34,7 @@
 
   DEFINE SMM_REQUIRE             = TRUE
 
-  #
-  # PLATFORMX64_ENABLE is set to TRUE when PEI is IA32 and DXE is X64 platform
-  #
-  DEFINE PLATFORMX64_ENABLE             = TRUE
-  DEFINE NETWORK_TLS_ENABLE             = FALSE
-  DEFINE NETWORK_ISCSI_ENABLE           = FALSE
-  DEFINE NETWORK_ALLOW_HTTP_CONNECTIONS = TRUE
-
   !include $(PROJECT)/OpenBoardPkgPcd.dsc
-  !include NetworkPkg/NetworkDefines.dsc.inc
 
 ################################################################################
 #
@@ -76,7 +67,6 @@
 
 [Components.X64]
 !include $(PLATFORM_PACKAGE)/Include/Dsc/CoreDxeInclude.dsc
-!include AdvancedFeaturePkg/Include/Dsc/CoreAdvancedDxeInclude.dsc
 
 #######################################
 # Build Option Includes
@@ -269,13 +259,6 @@
   $(PLATFORM_PACKAGE)/PlatformInit/PlatformInitSmm/PlatformInitSmm.inf
 !if gMinPlatformPkgTokenSpaceGuid.PcdBootToShellOnly == FALSE
   $(PLATFORM_PACKAGE)/Flash/SpiFvbService/SpiFvbServiceSmm.inf
-!endif
-
-  #######################################
-  # Advanced Feature Package
-  #######################################
-!if gAdvancedFeaturePkgTokenSpaceGuid.PcdSmbiosEnable == TRUE
-  AdvancedFeaturePkg/Smbios/SmbiosBasicDxe/SmbiosBasicDxe.inf
 !endif
 
   #######################################

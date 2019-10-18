@@ -13,7 +13,3 @@
   #
   !include NetworkPkg/NetworkComponents.dsc.inc
 
-!if gAdvancedFeaturePkgTokenSpaceGuid.PcdSmbiosEnable == TRUE
-  MdeModulePkg/Universal/SmbiosDxe/SmbiosDxe.inf
-!endif
-

@@ -11,14 +11,11 @@
 # SPDX-License-Identifier: BSD-2-Clause-Patent
 #
 ##
-
-
 [Defines]
 DEC_SPECIFICATION = 0x00010017
 PACKAGE_NAME = AdvancedFeaturePkg
 PACKAGE_VERSION = 0.1
 PACKAGE_GUID = 290127D9-ABED-4DD8-A35D-73DCB4261BCB
-
 
 [Includes]
 Include
@@ -27,4 +24,3 @@ Include
 gAdvancedFeaturePkgTokenSpaceGuid         =  {0xa8514688, 0x6693, 0x4ab5, {0xaa, 0xc8, 0xcc, 0xa9, 0x8d, 0xde, 0x90, 0xe1}}
 
 [PcdsFeatureFlag]
-  gAdvancedFeaturePkgTokenSpaceGuid.PcdNetworkEnable          |FALSE|BOOLEAN|0xF00000A1

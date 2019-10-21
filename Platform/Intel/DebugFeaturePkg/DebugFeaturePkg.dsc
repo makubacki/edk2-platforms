@@ -71,14 +71,6 @@
   MemoryAllocationLib|MdePkg/Library/UefiMemoryAllocationLib/UefiMemoryAllocationLib.inf
   UefiRuntimeLib|MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
 
-[LibraryClasses.common.DXE_SMM_DRIVER]
-  #######################################
-  # Edk2 Packages
-  #######################################
-  HobLib|MdePkg/Library/DxeHobLib/DxeHobLib.inf
-  MemoryAllocationLib|MdePkg/Library/SmmMemoryAllocationLib/SmmMemoryAllocationLib.inf
-  SmmServicesTableLib|MdePkg/Library/SmmServicesTableLib/SmmServicesTableLib.inf
-
 ###################################################################################################
 #
 # Components Section - list of the modules and components that will be processed by compilation
@@ -113,8 +105,6 @@
   DebugFeaturePkg/Library/Usb3DebugPortParameterLibPcd/Usb3DebugPortParameterLibPcd.inf
 
   # Add components here that should be included in the package build.
-  DebugFeaturePkg/AcpiDebug/AcpiDebugDxe.inf
-  DebugFeaturePkg/AcpiDebug/AcpiDebugSmm.inf
 
 [BuildOptions]
   *_*_*_CC_FLAGS = -D DISABLE_NEW_DEPRECATED_INTERFACES

@@ -96,6 +96,8 @@
   ######################################
   # Advanced Feature Configuration
   ######################################
+  gNetworkFeaturePkgTokenSpaceGuid.PcdNetworkFeatureEnable|TRUE
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosFeatureEnable|TRUE
 
 [PcdsFeatureFlag.X64]
   ######################################
@@ -250,6 +252,10 @@
   ######################################
   # Advanced Feature Configuration
   ######################################
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosType0StringBiosReleaseDate|"2019-08-09"
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosType0StringBiosVersion|"Ver.1.0.0"
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosType1StringProductName|"QSP UEFI BIOS"
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosType2StringProductName|"QSP UEFI BIOS"
 
 [PcdsDynamicExDefault]
   ######################################

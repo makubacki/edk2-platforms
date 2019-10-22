@@ -155,6 +155,7 @@ INF  MinPlatformPkg/PlatformInit/ReportFv/ReportFvPei.inf
 INF  MinPlatformPkg/PlatformInit/PlatformInitPei/PlatformInitPreMem.inf
 INF  MinPlatformPkg/PlatformInit/SiliconPolicyPei/SiliconPolicyPeiPreMem.inf
 !include MinPlatformPkg/Include/Fdf/CoreSecurityPreMemoryInclude.fdf
+!include AdvancedFeaturePkg/Include/PreMemory.fdf
 INF  $(BOARD_PKG)/SimicsPei/SimicsPei.inf
 !include $(SKT_PKG)/SktPostMemoryInclude.fdf
 !include $(PCH_PKG)/IchPostMemoryInclude.fdf
@@ -197,6 +198,7 @@ INF  MdeModulePkg/Bus/Pci/SataControllerDxe/SataControllerDxe.inf
 INF  UefiCpuPkg/CpuDxe/CpuDxe.inf
 
 !include MinPlatformPkg/Include/Fdf/CoreOsBootInclude.fdf
+!include AdvancedFeaturePkg/Include/PostMemory.fdf
 INF  MdeModulePkg/Universal/Acpi/S3SaveStateDxe/S3SaveStateDxe.inf
 INF  MdeModulePkg/Universal/Acpi/BootScriptExecutorDxe/BootScriptExecutorDxe.inf
 INF  UefiCpuPkg/CpuS3DataDxe/CpuS3DataDxe.inf

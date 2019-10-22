@@ -34,7 +34,17 @@
 
   DEFINE SMM_REQUIRE             = TRUE
 
+  #
+  # PLATFORMX64_ENABLE is set to TRUE when PEI is IA32 and DXE is X64 platform
+  #
+  DEFINE PLATFORMX64_ENABLE             = TRUE
+  DEFINE NETWORK_TLS_ENABLE             = FALSE
+  DEFINE NETWORK_ISCSI_ENABLE           = FALSE
+  DEFINE NETWORK_ALLOW_HTTP_CONNECTIONS = TRUE
+
+  !include AdvancedFeaturePkg/TemporaryBuildWorkaround/TemporaryBuildWorkaround.dsc
   !include $(PROJECT)/OpenBoardPkgPcd.dsc
+  !include AdvancedFeaturePkg/Include/AdvancedFeatures.dsc
 
 ################################################################################
 #

@@ -1,6 +1,11 @@
 ## @file
-# This package provides the modules that build for a full feature platform.
-# This AdvancedFeaturePkg should only depend on EDKII Core packages and MinPlatformPkg.
+#  Advanced Feature Package build declaration file.
+#
+# Advanced features allow a board package to be extended with advanced functionality.
+#
+# This package should not contain any specific advanced features. The package has two responsibilities:
+# 1. Present a consolidated and simplified view of all available advanced features to board packages.
+# 2. Provide a simple, single package build for all available advanced features.
 #
 # The DEC files are used by the utilities that parse DSC and
 # INF files to generate AutoGen.c and AutoGen.h files

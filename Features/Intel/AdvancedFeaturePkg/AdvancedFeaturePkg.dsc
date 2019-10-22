@@ -1,6 +1,12 @@
 ## @file
 #  Advanced Feature Package build description file.
 #
+# Advanced features allow a board package to be extended with advanced functionality.
+#
+# This package should not contain any specific advanced features. The package has two responsibilities:
+# 1. Present a consolidated and simplified view of all available advanced features to board packages.
+# 2. Provide a simple, single package build for all available advanced features.
+#
 # Copyright (c) 2017 - 2019, Intel Corporation. All rights reserved.<BR>
 #
 # SPDX-License-Identifier: BSD-2-Clause-Patent
@@ -21,3 +27,25 @@
   SUPPORTED_ARCHITECTURES             = IA32|X64
   BUILD_TARGETS                       = DEBUG|RELEASE
   SKUID_IDENTIFIER                    = DEFAULT
+  PEI_ARCH                            = IA32
+  DXE_ARCH                            = X64
+
+################################################################################
+#
+# Advanced Feature Enable section - all advanced features are enabling for the
+#                                   AdvancedFeaturePkg build.
+#
+################################################################################
+[PcdsFeatureFlag]
+  gAcpiDebugFeaturePkgTokenSpaceGuid.PcdAcpiDebugFeatureEnable            |TRUE
+  gIpmiFeaturePkgTokenSpaceGuid.PcdIpmiFeatureEnable                      |TRUE
+  gNetworkFeaturePkgTokenSpaceGuid.PcdNetworkFeatureEnable                |TRUE
+  gS3FeaturePkgTokenSpaceGuid.PcdS3FeatureEnable                          |TRUE
+  gSmbiosFeaturePkgTokenSpaceGuid.PcdSmbiosFeatureEnable                  |TRUE
+  gUsb3DebugFeaturePkgTokenSpaceGuid.PcdUsb3DebugFeatureEnable            |TRUE
+  gUserAuthFeaturePkgTokenSpaceGuid.PcdUserAuthenticationFeatureEnable    |TRUE
+
+#
+# This package builds all advanced features.
+#
+!include Include/AdvancedFeatures.dsc

@@ -61,10 +61,14 @@
 #######################################
 # Component Includes
 #######################################
+# @todo: Change below line to [Components.$(PEI_ARCH)] after https://bugzilla.tianocore.org/show_bug.cgi?id=2308
+#        is completed
 [Components.IA32]
 !include $(PLATFORM_PACKAGE)/Include/Dsc/CorePeiInclude.dsc
 !include $(SKT_PKG)/SktPkgPei.dsc
 
+# @todo: Change below line to [Components.$(DXE_ARCH)] after https://bugzilla.tianocore.org/show_bug.cgi?id=2308
+#        is completed
 [Components.X64]
 !include $(PLATFORM_PACKAGE)/Include/Dsc/CoreDxeInclude.dsc
 
@@ -143,6 +147,11 @@
   #######################################
   SpiFlashCommonLib|$(PCH_PKG)/Library/SmmSpiFlashCommonLib/SmmSpiFlashCommonLib.inf
 
+#######################################
+# PEI Components
+#######################################
+# @todo: Change below line to [Components.$(PEI_ARCH)] after https://bugzilla.tianocore.org/show_bug.cgi?id=2308
+#        is completed
 [Components.IA32]
   #######################################
   # Edk2 Packages
@@ -192,6 +201,11 @@
       PcdLib|MdePkg/Library/PeiPcdLib/PeiPcdLib.inf
   }
 
+#######################################
+# DXE Components
+#######################################
+# @todo: Change below line to [Components.$(DXE_ARCH)] after https://bugzilla.tianocore.org/show_bug.cgi?id=2308
+#        is completed
 [Components.X64]
   #######################################
   # Edk2 Packages

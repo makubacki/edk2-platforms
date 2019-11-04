@@ -272,6 +272,7 @@ gMinPlatformPkgTokenSpaceGuid.PcdPcIoApicEnable|0x0|UINT32|0x90000019
   # Stage 3 - boot to shell only
   # Stage 4 - boot to OS
   # Stage 5 - boot to OS with security boot enabled
+  # Stage 6 - boot with advanced features enabled
   #
   gMinPlatformPkgTokenSpaceGuid.PcdBootStage|4|UINT8|0xF00000A0
 

@@ -59,6 +59,12 @@ A UEFI firmware implementation using MinPlatformPkg is constructed using the fol
 
 ### **Supported Hardware**
 
+#### AAEON
+
+| Machine Name                          | Supported Chipsets                         | BoardPkg                     | Board Name         |
+----------------------------------------|--------------------------------------------|------------------------------|--------------------|
+| UP Xtreme                             | Whiskey Lake                               | WhiskeylakeOpenBoardPkg      | UpXtreme           |
+
 #### Intel
 
 ***Intel Reference and Validation Platform***
@@ -233,6 +239,9 @@ return back to the minimum platform caller.
           |       |        |                                     build settings, environment variables.
           |       |        |
           |       |        |------WhiskeylakeOpenBoardPkg
+          |       |        |       |------UpXtreme
+          |       |        |               |---build_config.cfg: UpXtreme specific build
+          |       |        |                                     settings environment variables.
           |       |        |       |------WhiskeylakeURvp
           |       |        |               |---build_config.cfg: WhiskeylakeURvp specific build
           |       |        |                                     settings environment variables.
@@ -256,6 +265,9 @@ return back to the minimum platform caller.
 **WhiskeylakeOpenBoardPkg**
 1. This firmware project has only been tested booting to Microsoft Windows 10 x64 with AHCI mode and Integrated Graphic
    Device.
+2. UP Xtreme boards might hang during Windows 10 boot.
+3. Not all UP Xtreme boards are supported at this time, only the XXX model has been tested. Board-specific memory
+   settings are needed to enable other models.
 
 ### **Package Builds**
 

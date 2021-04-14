@@ -162,8 +162,6 @@
   MinPlatformPkg/Bds/Library/BoardBootManagerLibNull/BoardBootManagerLibNull.inf
   MinPlatformPkg/Bds/Library/DxePlatformBootManagerLib/DxePlatformBootManagerLib.inf
 
-  MinPlatformPkg/Flash/SpiFvbService/SpiFvbServiceSmm.inf
-  MinPlatformPkg/Flash/SpiFvbService/SpiFvbServiceStandaloneMm.inf
   MinPlatformPkg/Flash/Library/SpiFlashCommonLibNull/SpiFlashCommonLibNull.inf
 
   MinPlatformPkg/FspWrapper/SaveMemoryConfig/SaveMemoryConfig.inf

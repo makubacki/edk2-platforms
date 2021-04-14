@@ -52,8 +52,8 @@
 
 [Pcd]
   gSiPkgTokenSpaceGuid.PcdPeiMinMemorySize
-  gSiPkgTokenSpaceGuid.PcdFlashMicrocodeFvBase
-  gSiPkgTokenSpaceGuid.PcdFlashMicrocodeFvSize
+  gIntelSiliconPkgTokenSpaceGuid.PcdFlashMicrocodeFvBase
+  gIntelSiliconPkgTokenSpaceGuid.PcdFlashMicrocodeFvSize
   gKabylakeOpenBoardPkgTokenSpaceGuid.PcdGraphicsVbtGuid
   gKabylakeOpenBoardPkgTokenSpaceGuid.PcdMrcRcompResistor       ## CONSUMES
   gKabylakeOpenBoardPkgTokenSpaceGuid.PcdMrcRcompTarget         ## CONSUMES

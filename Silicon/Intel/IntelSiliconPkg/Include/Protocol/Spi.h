@@ -20,33 +20,6 @@ extern EFI_GUID                   gPchSmmSpiProtocolGuid;
 typedef struct _PCH_SPI_PROTOCOL  PCH_SPI_PROTOCOL;
 
 //
-// SPI protocol data structures and definitions
-//
-
-/**
-  Flash Region Type
-**/
-typedef enum {
-  FlashRegionDescriptor,
-  FlashRegionBios,
-  FlashRegionMe,
-  FlashRegionGbE,
-  FlashRegionPlatformData,
-  FlashRegionDer,
-  FlashRegionSecondaryBios,
-  FlashRegionuCodePatch,
-  FlashRegionEC,
-  FlashRegionDeviceExpansion2,
-  FlashRegionIE,
-  FlashRegion10Gbe_A,
-  FlashRegion10Gbe_B,
-  FlashRegion13,
-  FlashRegion14,
-  FlashRegion15,
-  FlashRegionAll,
-  FlashRegionMax
-} FLASH_REGION_TYPE;
-//
 // Protocol member functions
 //
 
@@ -54,7 +27,7 @@ typedef enum {
   Read data from the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region type for flash cycle which is listed in the Descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[out] Buffer              The Pointer to caller-allocated buffer containing the dada received.
@@ -68,7 +41,7 @@ typedef
 EFI_STATUS
 (EFIAPI *PCH_SPI_FLASH_READ) (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   OUT    UINT8              *Buffer
@@ -78,7 +51,7 @@ EFI_STATUS
   Write data to the flash part. Remark: Erase may be needed before write to the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region type for flash cycle which is listed in the Descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[in] Buffer               Pointer to caller-allocated buffer containing the data sent during the SPI cycle.
@@ -91,7 +64,7 @@ typedef
 EFI_STATUS
 (EFIAPI *PCH_SPI_FLASH_WRITE) (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   IN     UINT8              *Buffer
@@ -101,7 +74,7 @@ EFI_STATUS
   Erase some area on the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region type for flash cycle which is listed in the Descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
 
@@ -113,7 +86,7 @@ typedef
 EFI_STATUS
 (EFIAPI *PCH_SPI_FLASH_ERASE) (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount
   );
@@ -206,7 +179,7 @@ EFI_STATUS
   Get the SPI region base and size, based on the enum type
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for for the base address which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region type for for the base address which is listed in the Descriptor.
   @param[out] BaseAddress         The Flash Linear Address for the Region 'n' Base
   @param[out] RegionSize          The size for the Region 'n'
 
@@ -218,7 +191,7 @@ typedef
 EFI_STATUS
 (EFIAPI *PCH_SPI_GET_REGION_ADDRESS) (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           FlashRegionGuid,
   OUT    UINT32             *BaseAddress,
   OUT    UINT32             *RegionSize
   );

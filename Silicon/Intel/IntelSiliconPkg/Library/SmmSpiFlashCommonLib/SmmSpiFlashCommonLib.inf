@@ -37,6 +37,9 @@
   gIntelSiliconPkgTokenSpaceGuid.PcdBiosAreaBaseAddress   ## CONSUMES
   gIntelSiliconPkgTokenSpaceGuid.PcdBiosSize              ## CONSUMES
 
+[Guids]
+  gFlashRegionBiosGuid
+
 [Sources]
   SmmSpiFlashCommonLib.c
   SpiFlashCommon.c

@@ -2,11 +2,13 @@
   PCH SPI Common Driver implements the SPI Host Controller Compatibility Interface.
 
   Copyright (c) 2019 Intel Corporation. All rights reserved. <BR>
+  Copyright (c) Microsoft Corporation.<BR>
 
   SPDX-License-Identifier: BSD-2-Clause-Patent
 **/
 
 #include <Uefi/UefiBaseType.h>
+#include <Guid/FlashRegion.h>
 #include <Library/IoLib.h>
 #include <Library/DebugLib.h>
 #include <Library/BaseMemoryLib.h>
@@ -15,6 +17,90 @@
 #include <Protocol/Spi.h>
 #include <IncludePrivate/Library/PchSpiCommonLib.h>
 #include <Register/X58Ich10.h>
+
+typedef enum {
+  FlashRegionDescriptor,
+  FlashRegionBios,
+  FlashRegionMe,
+  FlashRegionGbe,
+  FlashRegionPlatformData,
+  FlashRegionDer,
+  FlashRegionAll,
+  FlashRegionMax
+} FLASH_REGION_TYPE;
+
+typedef struct {
+  EFI_GUID            *Guid;
+  FLASH_REGION_TYPE   Type;
+} FLASH_REGION_MAPPING;
+
+FLASH_REGION_MAPPING mFlashRegionTypes[] = {
+  {
+    &gFlashRegionDescriptorGuid,
+    FlashRegionDescriptor
+  },
+  {
+    &gFlashRegionBiosGuid,
+    FlashRegionBios
+  },
+  {
+    &gFlashRegionMeGuid,
+    FlashRegionMe
+  },
+  {
+    &gFlashRegionGbeGuid,
+    FlashRegionGbe
+  },
+  {
+    &gFlashRegionPlatformDataGuid,
+    FlashRegionPlatformData
+  },
+  {
+    &gFlashRegionDerGuid,
+    FlashRegionDer
+  },
+  {
+    &gFlashRegionAllGuid,
+    FlashRegionAll
+  },
+  {
+    &gFlashRegionMaxGuid,
+    FlashRegionMax
+  }
+};
+
+/**
+  Returns the type of a flash region given its GUID.
+
+  @param[in]    FlashRegionGuid   Pointer to the flash region GUID.
+  @param[out]   FlashRegionType   Pointer to a buffer that will be set to the flash region type value.
+
+  @retval       EFI_SUCCESS             The flash region type was found for the given flash region GUID.
+  @retval       EFI_INVALID_PARAMETER   A pointer argument passed to the function is NULL.
+  @retval       EFI_NOT_FOUND           The flash region type was not found for the given flash region GUID.
+
+**/
+EFI_STATUS
+GetFlashRegionType (
+  IN     EFI_GUID           *FlashRegionGuid,
+  OUT    FLASH_REGION_TYPE  *FlashRegionType
+  )
+{
+  UINTN   Index;
+
+  if (FlashRegionGuid == NULL || FlashRegionType == NULL) {
+    return EFI_INVALID_PARAMETER;
+  }
+
+  for (Index = 0; Index < ARRAY_SIZE (mFlashRegionTypes); Index++) {
+    if (CompareGuid (mFlashRegionTypes[Index].Guid, FlashRegionGuid)) {
+      *FlashRegionType = mFlashRegionTypes[Index].Type;
+      return EFI_SUCCESS;
+    }
+  }
+
+  return EFI_NOT_FOUND;
+}
 
 /**
   Initialize an SPI protocol instance.
@@ -145,7 +231,7 @@ PchPmTimerStallRuntimeSafe (
   Read data from the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[out] Buffer              The Pointer to caller-allocated buffer containing the dada received.
@@ -159,7 +245,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashRead (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   OUT    UINT8              *Buffer
@@ -172,7 +258,7 @@ SpiProtocolFlashRead (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionType,
+             FlashRegionGuid,
              FlashCycleRead,
              Address,
              ByteCount,
@@ -185,7 +271,7 @@ SpiProtocolFlashRead (
   Write data to the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[in] Buffer               Pointer to caller-allocated buffer containing the data sent during the SPI cycle.
@@ -198,7 +284,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashWrite (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   IN     UINT8              *Buffer
@@ -211,7 +297,7 @@ SpiProtocolFlashWrite (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionType,
+             FlashRegionGuid,
              FlashCycleWrite,
              Address,
              ByteCount,
@@ -224,7 +310,7 @@ SpiProtocolFlashWrite (
   Erase some area on the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
 
@@ -236,7 +322,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashErase (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount
   )
@@ -248,7 +334,7 @@ SpiProtocolFlashErase (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionType,
+             FlashRegionGuid,
              FlashCycleErase,
              Address,
              ByteCount,
@@ -303,7 +389,7 @@ SpiProtocolFlashReadSfdp (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionAll,
+             &gFlashRegionAllGuid,
              FlashCycleReadSfdp,
              FlashAddress,
              ByteCount,
@@ -356,7 +442,7 @@ SpiProtocolFlashReadJedecId (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionAll,
+             &gFlashRegionAllGuid,
              FlashCycleReadJedecId,
              Address,
              ByteCount,
@@ -391,7 +477,7 @@ SpiProtocolFlashWriteStatus (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionAll,
+             &gFlashRegionAllGuid,
              FlashCycleWriteStatus,
              0,
              ByteCount,
@@ -426,7 +512,7 @@ SpiProtocolFlashReadStatus (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionAll,
+             &gFlashRegionAllGuid,
              FlashCycleReadStatus,
              0,
              ByteCount,
@@ -439,7 +525,7 @@ SpiProtocolFlashReadStatus (
   Get the SPI region base and size, based on the enum type
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for for the base address which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for the base address which corresponds to the type in the descriptor.
   @param[out] BaseAddress         The Flash Linear Address for the Region 'n' Base
   @param[out] RegionSize          The size for the Region 'n'
 
@@ -451,16 +537,23 @@ EFI_STATUS
 EFIAPI
 SpiProtocolGetRegionAddress (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   OUT    UINT32             *BaseAddress,
   OUT    UINT32             *RegionSize
   )
 {
-  SPI_INSTANCE    *SpiInstance;
-  UINTN           PchSpiBar0;
-  UINT32          ReadValue;
+  EFI_STATUS          Status;
+  FLASH_REGION_TYPE   FlashRegionType;
+  SPI_INSTANCE        *SpiInstance;
+  UINTN               PchSpiBar0;
+  UINT32              ReadValue;
 
   SpiInstance     = SPI_INSTANCE_FROM_SPIPROTOCOL (This);
+
+  Status = GetFlashRegionType (FlashRegionGuid, &FlashRegionType);
+  if (EFI_ERROR (Status)) {
+    return EFI_INVALID_PARAMETER;
+  }
 
   if (FlashRegionType >= FlashRegionMax) {
     return EFI_INVALID_PARAMETER;
@@ -542,7 +635,7 @@ SpiProtocolReadPchSoftStrap (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionDescriptor,
+             &gFlashRegionDescriptorGuid,
              FlashCycleRead,
              StrapFlashAddr,
              ByteCount,
@@ -600,7 +693,7 @@ SpiProtocolReadCpuSoftStrap (
   //
   Status = SendSpiCmd (
              This,
-             FlashRegionDescriptor,
+             &gFlashRegionDescriptorGuid,
              FlashCycleRead,
              StrapFlashAddr,
              ByteCount,
@@ -613,7 +706,7 @@ SpiProtocolReadCpuSoftStrap (
   This function sends the programmed SPI command to the slave device.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] SpiRegionType        The SPI Region type for flash cycle which is listed in the Descriptor
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] FlashCycleType       The Flash SPI cycle type list in HSFC (Hardware Sequencing Flash Control Register) register
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
@@ -627,7 +720,7 @@ SpiProtocolReadCpuSoftStrap (
 EFI_STATUS
 SendSpiCmd (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     FLASH_CYCLE_TYPE   FlashCycleType,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
@@ -682,7 +775,7 @@ SendSpiCmd (
     goto SendSpiCmdEnd;
   }
 
-  Status = SpiProtocolGetRegionAddress (This, FlashRegionType, &HardwareSpiAddr, &FlashRegionSize);
+  Status = SpiProtocolGetRegionAddress (This, FlashRegionGuid, &HardwareSpiAddr, &FlashRegionSize);
   if (EFI_ERROR (Status)) {
     goto SendSpiCmdEnd;
   }

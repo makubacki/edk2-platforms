@@ -135,7 +135,7 @@ ReleaseSpiBar0 (
   Read data from the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[out] Buffer              The Pointer to caller-allocated buffer containing the dada received.
@@ -149,7 +149,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashRead (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   OUT    UINT8              *Buffer
@@ -159,7 +159,7 @@ SpiProtocolFlashRead (
   Write data to the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
   @param[in] Buffer               Pointer to caller-allocated buffer containing the data sent during the SPI cycle.
@@ -172,7 +172,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashWrite (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,
   IN     UINT8              *Buffer
@@ -182,7 +182,7 @@ SpiProtocolFlashWrite (
   Erase some area on the flash part.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for flash cycle which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
 
@@ -194,7 +194,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolFlashErase (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     UINT32             Address,
   IN     UINT32             ByteCount
   );
@@ -287,7 +287,7 @@ SpiProtocolFlashReadStatus (
   Get the SPI region base and size, based on the enum type
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] FlashRegionType      The Flash Region type for for the base address which is listed in the Descriptor.
+  @param[in] FlashRegionGuid      The Flash Region GUID for the base address which corresponds to the type in the descriptor.
   @param[out] BaseAddress         The Flash Linear Address for the Region 'n' Base
   @param[out] RegionSize          The size for the Region 'n'
 
@@ -299,7 +299,7 @@ EFI_STATUS
 EFIAPI
 SpiProtocolGetRegionAddress (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   OUT    UINT32             *BaseAddress,
   OUT    UINT32             *RegionSize
   );
@@ -354,7 +354,7 @@ SpiProtocolReadCpuSoftStrap (
   This function sends the programmed SPI command to the slave device.
 
   @param[in] This                 Pointer to the PCH_SPI_PROTOCOL instance.
-  @param[in] SpiRegionType        The SPI Region type for flash cycle which is listed in the Descriptor
+  @param[in] FlashRegionGuid      The Flash Region GUID for flash cycle which corresponds to the type in the descriptor.
   @param[in] FlashCycleType       The Flash SPI cycle type list in HSFC (Hardware Sequencing Flash Control Register) register
   @param[in] Address              The Flash Linear Address must fall within a region for which BIOS has access permissions.
   @param[in] ByteCount            Number of bytes in the data portion of the SPI cycle.
@@ -368,7 +368,7 @@ SpiProtocolReadCpuSoftStrap (
 EFI_STATUS
 SendSpiCmd (
   IN     PCH_SPI_PROTOCOL   *This,
-  IN     FLASH_REGION_TYPE  FlashRegionType,
+  IN     EFI_GUID           *FlashRegionGuid,
   IN     FLASH_CYCLE_TYPE   FlashCycleType,
   IN     UINT32             Address,
   IN     UINT32             ByteCount,

@@ -52,7 +52,7 @@ SmmSpiFlashCommonLibConstructor (
                     );
   ASSERT_EFI_ERROR (Status);
 
-  mSpiProtocol->GetRegionAddress (mSpiProtocol, FlashRegionBios, &BaseAddr, &RegionSize);
+  mSpiProtocol->GetRegionAddress (mSpiProtocol, &gFlashRegionBiosGuid, &BaseAddr, &RegionSize);
   mBiosOffset = BaseAddr;
   return Status;
 }

@@ -127,7 +127,7 @@ SpiFlashWrite (
     }
     Status = mSpiProtocol->FlashWrite (
                              mSpiProtocol,
-                             FlashRegionBios,
+                             &gFlashRegionBiosGuid,
                              (UINT32) Offset,
                              Length,
                              Buffer
@@ -201,7 +201,7 @@ SpiFlashBlockErase (
 
   Status = mSpiProtocol->FlashErase (
                            mSpiProtocol,
-                           FlashRegionBios,
+                           &gFlashRegionBiosGuid,
                            (UINT32) Offset,
                            (UINT32) RemainingBytes
                            );

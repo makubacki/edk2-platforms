@@ -98,7 +98,7 @@ SerialPortWrite (
     LinearOffset = (UINT32) (FixedPcdGet32 (PcdFlashNvDebugMessageBase) - FixedPcdGet32 (PcdFlashAreaBaseAddress));
     Status = PchSpiPpi->FlashErase (
                           PchSpiPpi,
-                          FlashRegionBios,
+                          &gFlashRegionBiosGuid,
                           LinearOffset,
                           NvMessageAreaSize
                           );
@@ -118,7 +118,7 @@ SerialPortWrite (
 
   Status = PchSpiPpi->FlashWrite (
                         PchSpiPpi,
-                        FlashRegionBios,
+                        &gFlashRegionBiosGuid,
                         LinearOffset,
                         BytesWritten,
                         (UINT8 *) &Buffer[SourceBufferOffset]

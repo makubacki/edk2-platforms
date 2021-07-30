@@ -43,6 +43,7 @@
   gPchSpiPpiGuid
 
 [Guids]
+  gFlashRegionBiosGuid
   gSpiFlashDebugHobGuid
 
 [Pcd]

@@ -1,0 +1,325 @@
+# Defines the mappings between GitHub issue responses and labels applied to the issue.
+#
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+# For more information, see:
+# https://github.com/redhat-plumbers-in-action/advanced-issue-labeler
+
+policy:
+  - section:
+
+    # Issue Template - Urgency Dropdown
+    - id: ['urgency']
+      block-list: []
+      label:
+        - name: 'priority:low'
+          keys: ['Low']
+        - name: 'priority:medium'
+          keys: ['Medium']
+        - name: 'priority:high'
+          keys: ['High']
+
+    # Issue Template - Code First
+    - id: ['code_first']
+      block-list: []
+      label:
+        - name: 'type:code-first'
+          keys: ['Yes']
+
+    # Issue Template - Fix Owner Dropdown
+    - id: ['fix_owner', 'request_owner']
+      block-list: []
+      label:
+        - name: 'state:needs-owner'
+          keys: [
+            'Someone else needs to fix it',
+            'Someone else needs to make the change',
+            'Someone else needs to implement the feature'
+            ]
+        - name: 'state:needs-triage'
+          keys: [
+            'Someone else needs to fix it',
+            'Someone else needs to make the change',
+            'Someone else needs to implement the feature'
+            ]
+
+    # Issue Template - Needs Maintainer Feedback Dropdown
+    - id: ['needs_maintainer_feedback']
+      block-list: []
+      label:
+        - name: 'state:needs-maintainer-feedback'
+          keys: ['Maintainer feedback requested']
+
+    # Issue Template - Packages Impacted
+    - id: ['packages_impacted']
+      block-list: []
+      label:
+        - name: 'package:all'
+          keys: ['All']
+        - name: 'package:96boards-96boards'
+          keys: ['96Boards/96Boards']
+        - name: 'package:adlink-comhpcaltpkg'
+          keys: ['ADLINK/ComHpcAltPkg']
+        - name: 'package:asix-asix'
+          keys: ['Drivers/ASIX/Asix']
+        - name: 'package:displaylink-displaylinkpkg'
+          keys: ['Drivers/DisplayLink/DisplayLinkPkg']
+        - name: 'package:optee-opteerpmbpkg'
+          keys: ['Drivers/OpTee/OpteeRpmbPkg']
+        - name: 'package:optionrompkg'
+          keys: ['Drivers/OptionRomPkg']
+        - name: 'package:ext4pkg'
+          keys: ['Features/Ext4Pkg']
+        - name: 'package:intel-advancedfeaturepkg'
+          keys: ['Features/Intel/AdvancedFeaturePkg']
+        - name: 'package:intel-debugging'
+          keys: ['Features/Intel/Debugging']
+        - name: 'package:intel-network'
+          keys: ['Features/Intel/Network']
+        - name: 'package:intel-outofbandmanagement'
+          keys: ['Features/Intel/OutOfBandManagement']
+        - name: 'package:intel-platformpayloadfeaturepkg'
+          keys: ['Features/Intel/PlatformPayloadFeaturePkg']
+        - name: 'package:intel-powermanagement'
+          keys: ['Features/Intel/PowerManagement']
+        - name: 'package:intel-systeminformation'
+          keys: ['Features/Intel/SystemInformation']
+        - name: 'package:intel-templatefeaturepkg'
+          keys: ['Features/Intel/TemplateFeaturePkg']
+        - name: 'package:intel-userinterface'
+          keys: ['Features/Intel/UserInterface']
+        - name: 'package:manageabilitypkg'
+          keys: ['Features/ManageabilityPkg']
+        - name: 'package:amd-agesamodulepkg'
+          keys: ['Platform/AMD/AgesaModulePkg']
+        - name: 'package:amd-agesapkg'
+          keys: ['Platform/AMD/AgesaPkg']
+        - name: 'package:amd-amdcbspkg'
+          keys: ['Platform/AMD/AmdCbsPkg']
+        - name: 'package:amd-amdcpmpkg'
+          keys: ['Platform/AMD/AmdCpmPkg']
+        - name: 'package:amd-amdminboardpkg'
+          keys: ['Platform/AMD/AmdMinBoardPkg']
+        - name: 'package:amd-amdplatformpkg'
+          keys: ['Platform/AMD/AmdPlatformPkg']
+        - name: 'package:amd-overdriveboard'
+          keys: ['Platform/AMD/OverdriveBoard']
+        - name: 'package:amd-vangoghboard'
+          keys: ['Platform/AMD/VanGoghBoard']
+        - name: 'package:arm-arm'
+          keys: ['Platform/ARM/ARM']
+        - name: 'package:arm-junopkg'
+          keys: ['Platform/ARM/JunoPkg']
+        - name: 'package:arm-morelloplatform'
+          keys: ['Platform/ARM/MorelloPlatform']
+        - name: 'package:arm-n1sdpplatform'
+          keys: ['Platform/ARM/N1SdpPlatform']
+        - name: 'package:arm-sgipkg'
+          keys: ['Platform/ARM/SgiPkg']
+        - name: 'package:arm-vexpresspkg'
+          keys: ['Platform/ARM/VExpressPkg']
+        - name: 'package:ampere-jadepkg'
+          keys: ['Platform/Ampere/JadePkg']
+        - name: 'package:ampere-tools'
+          keys: ['Platform/Ampere/Tools']
+        - name: 'package:beagleboard-beagleboardpkg'
+          keys: ['Platform/BeagleBoard/BeagleBoardPkg']
+        - name: 'package:bosc-xiangshanseriespkg'
+          keys: ['Platform/Bosc/XiangshanSeriesPkg']
+        - name: 'package:hisilicon-d03'
+          keys: ['Platform/Hisilicon/D03']
+        - name: 'package:hisilicon-d05'
+          keys: ['Platform/Hisilicon/D05']
+        - name: 'package:hisilicon-d06'
+          keys: ['Platform/Hisilicon/D06']
+        - name: 'package:hisilicon-hikey'
+          keys: ['Platform/Hisilicon/HiKey']
+        - name: 'package:hisilicon-hikey960'
+          keys: ['Platform/Hisilicon/HiKey960']
+        - name: 'package:intel-alderlakeopenboardpkg'
+          keys: ['Platform/Intel/AlderlakeOpenBoardPkg']
+        - name: 'package:intel-boardmodulepkg'
+          keys: ['Platform/Intel/BoardModulePkg']
+        - name: 'package:intel-cometlakeopenboardpkg'
+          keys: ['Platform/Intel/CometlakeOpenBoardPkg']
+        - name: 'package:intel-kabylakeopenboardpkg'
+          keys: ['Platform/Intel/KabylakeOpenBoardPkg']
+        - name: 'package:intel-minplatformpkg'
+          keys: ['Platform/Intel/MinPlatformPkg']
+        - name: 'package:intel-purleyopenboardpkg'
+          keys: ['Platform/Intel/PurleyOpenBoardPkg']
+        - name: 'package:intel-quarkplatformpkg'
+          keys: ['Platform/Intel/QuarkPlatformPkg']
+        - name: 'package:intel-simicsopenboardpkg'
+          keys: ['Platform/Intel/SimicsOpenBoardPkg']
+        - name: 'package:intel-tigerlakeopenboardpkg'
+          keys: ['Platform/Intel/TigerlakeOpenBoardPkg']
+        - name: 'package:intel-vlv2tbltdevicepkg'
+          keys: ['Platform/Intel/Vlv2TbltDevicePkg']
+        - name: 'package:intel-whiskeylakeopenboardpkg'
+          keys: ['Platform/Intel/WhiskeylakeOpenBoardPkg']
+        - name: 'package:intel-whitleyopenboardpkg'
+          keys: ['Platform/Intel/WhitleyOpenBoardPkg']
+        - name: 'package:lemaker-celloboard'
+          keys: ['Platform/LeMaker/CelloBoard']
+        - name: 'package:loongson-loongarchqemupkg'
+          keys: ['Platform/Loongson/LoongArchQemuPkg']
+        - name: 'package:marvell-armada70x0db'
+          keys: ['Platform/Marvell/Armada70x0Db']
+        - name: 'package:marvell-armada80x0db'
+          keys: ['Platform/Marvell/Armada80x0Db']
+        - name: 'package:marvell-cn913xdb'
+          keys: ['Platform/Marvell/Cn913xDb']
+        - name: 'package:marvell-odysseypkg'
+          keys: ['Platform/Marvell/OdysseyPkg']
+        - name: 'package:nxp-configurationmanagerpkg'
+          keys: ['Platform/NXP/ConfigurationManagerPkg']
+        - name: 'package:nxp-ls1043ardbpkg'
+          keys: ['Platform/NXP/LS1043aRdbPkg']
+        - name: 'package:nxp-ls1046afrwypkg'
+          keys: ['Platform/NXP/LS1046aFrwyPkg']
+        - name: 'package:nxp-lx2160ardbpkg'
+          keys: ['Platform/NXP/LX2160aRdbPkg']
+        - name: 'package:phytium-durianpkg'
+          keys: ['Platform/Phytium/DurianPkg']
+        - name: 'package:qemu-qemuopenboardpkg'
+          keys: ['Platform/Qemu/QemuOpenBoardPkg']
+        - name: 'package:qemu-sbsaqemu'
+          keys: ['Platform/Qemu/SbsaQemu']
+        - name: 'package:risc-v-platformpkg'
+          keys: ['Platform/RISC-V/PlatformPkg']
+        - name: 'package:raspberrypi-raspberrypi'
+          keys: ['Platform/RaspberryPi/RaspberryPi']
+        - name: 'package:raspberrypi-rpi3'
+          keys: ['Platform/RaspberryPi/RPi3']
+        - name: 'package:raspberrypi-rpi4'
+          keys: ['Platform/RaspberryPi/RPi4']
+        - name: 'package:sifive-u5seriespkg'
+          keys: ['Platform/SiFive/U5SeriesPkg']
+        - name: 'package:socionext-developerbox'
+          keys: ['Platform/Socionext/DeveloperBox']
+        - name: 'package:socionext-synquacerevalboard'
+          keys: ['Platform/Socionext/SynQuacerEvalBoard']
+        - name: 'package:softiron-overdrive1000board'
+          keys: ['Platform/SoftIron/Overdrive1000Board']
+        - name: 'package:solidrun-armada80x0mcbin'
+          keys: ['Platform/SolidRun/Armada80x0McBin']
+        - name: 'package:solidrun-cn913xcex7eval'
+          keys: ['Platform/SolidRun/Cn913xCEx7Eval']
+        - name: 'package:sophgo-documents'
+          keys: ['Platform/Sophgo/Documents']
+        - name: 'package:sophgo-sg2042_evb_board'
+          keys: ['Platform/Sophgo/SG2042_EVB_Board']
+        - name: 'package:standalonemm-platformstandalonemmpkg'
+          keys: ['Platform/StandaloneMm/PlatformStandaloneMmPkg']
+        - name: 'package:amd-styx'
+          keys: ['Silicon/AMD/Styx']
+        - name: 'package:amd-vangoghboard'
+          keys: ['Silicon/AMD/VanGoghBoard']
+        - name: 'package:arm-neoversen1soc'
+          keys: ['Silicon/ARM/NeoverseN1Soc']
+        - name: 'package:ampere-amperealtrapkg'
+          keys: ['Silicon/Ampere/AmpereAltraPkg']
+        - name: 'package:ampere-amperesiliconpkg'
+          keys: ['Silicon/Ampere/AmpereSiliconPkg']
+        - name: 'package:atmel-atsha204a'
+          keys: ['Silicon/Atmel/AtSha204a']
+        - name: 'package:bosc-nanhupkg'
+          keys: ['Silicon/Bosc/NanHuPkg']
+        - name: 'package:broadcom-bcm27xx'
+          keys: ['Silicon/Broadcom/Bcm27xx']
+        - name: 'package:broadcom-bcm283x'
+          keys: ['Silicon/Broadcom/Bcm283x']
+        - name: 'package:broadcom-drivers'
+          keys: ['Silicon/Broadcom/Drivers']
+        - name: 'package:hisilicon-drivers'
+          keys: ['Silicon/HiSilicon/Drivers']
+        - name: 'package:hisilicon-hi1610'
+          keys: ['Silicon/HiSilicon/Hi1610']
+        - name: 'package:hisilicon-hi1616'
+          keys: ['Silicon/HiSilicon/Hi1616']
+        - name: 'package:hisilicon-hi1620'
+          keys: ['Silicon/HiSilicon/Hi1620']
+        - name: 'package:hisilicon-hi3660'
+          keys: ['Silicon/HiSilicon/Hi3660']
+        - name: 'package:hisilicon-hi6220'
+          keys: ['Silicon/HiSilicon/Hi6220']
+        - name: 'package:hisilicon-hisipkg'
+          keys: ['Silicon/HiSilicon/HisiPkg']
+        - name: 'package:intel-alderlakesiliconpkg'
+          keys: ['Silicon/Intel/AlderlakeSiliconPkg']
+        - name: 'package:intel-coffeelakesiliconpkg'
+          keys: ['Silicon/Intel/CoffeelakeSiliconPkg']
+        - name: 'package:intel-intelsiliconpkg'
+          keys: ['Silicon/Intel/IntelSiliconPkg']
+        - name: 'package:intel-kabylakesiliconpkg'
+          keys: ['Silicon/Intel/KabylakeSiliconPkg']
+        - name: 'package:intel-purleyrefreshsiliconpkg'
+          keys: ['Silicon/Intel/PurleyRefreshSiliconPkg']
+        - name: 'package:intel-quarksocpkg'
+          keys: ['Silicon/Intel/QuarkSocPkg']
+        - name: 'package:intel-simicsich10pkg'
+          keys: ['Silicon/Intel/SimicsIch10Pkg']
+        - name: 'package:intel-simicsx58sktpkg'
+          keys: ['Silicon/Intel/SimicsX58SktPkg']
+        - name: 'package:intel-tigerlakesiliconpkg'
+          keys: ['Silicon/Intel/TigerlakeSiliconPkg']
+        - name: 'package:intel-tools'
+          keys: ['Silicon/Intel/Tools']
+        - name: 'package:intel-vlv2devicerefcodepkg'
+          keys: ['Silicon/Intel/Vlv2DeviceRefCodePkg']
+        - name: 'package:intel-whitleysiliconpkg'
+          keys: ['Silicon/Intel/WhitleySiliconPkg']
+        - name: 'package:marvell-applications'
+          keys: ['Silicon/Marvell/Applications']
+        - name: 'package:marvell-armada7k8k'
+          keys: ['Silicon/Marvell/Armada7k8k']
+        - name: 'package:marvell-documentation'
+          keys: ['Silicon/Marvell/Documentation']
+        - name: 'package:marvell-drivers'
+          keys: ['Silicon/Marvell/Drivers']
+        - name: 'package:marvell-library'
+          keys: ['Silicon/Marvell/Library']
+        - name: 'package:marvell-marvellsiliconpkg'
+          keys: ['Silicon/Marvell/MarvellSiliconPkg']
+        - name: 'package:marvell-octeontx'
+          keys: ['Silicon/Marvell/OcteonTx']
+        - name: 'package:marvell-odysseypkg'
+          keys: ['Silicon/Marvell/OdysseyPkg']
+        - name: 'package:maxim'
+          keys: ['Silicon/Maxim']
+        - name: 'package:nxp-chassis2'
+          keys: ['Silicon/NXP/Chassis2']
+        - name: 'package:nxp-chassis3v2'
+          keys: ['Silicon/NXP/Chassis3V2']
+        - name: 'package:nxp-ls1043a'
+          keys: ['Silicon/NXP/LS1043A']
+        - name: 'package:nxp-ls1046a'
+          keys: ['Silicon/NXP/LS1046A']
+        - name: 'package:nxp-lx2160a'
+          keys: ['Silicon/NXP/LX2160A']
+        - name: 'package:nxp-nxpqoriqls'
+          keys: ['Silicon/NXP/NxpQoriqLs']
+        - name: 'package:openmoko'
+          keys: ['Silicon/Openmoko']
+        - name: 'package:phytium-ft2000-4pkg'
+          keys: ['Silicon/Phytium/FT2000-4Pkg']
+        - name: 'package:phytium-phytiumcommonpkg'
+          keys: ['Silicon/Phytium/PhytiumCommonPkg']
+        - name: 'package:qemu-sbsaqemu'
+          keys: ['Silicon/Qemu/SbsaQemu']
+        - name: 'package:risc-v-processorpkg'
+          keys: ['Silicon/RISC-V/ProcessorPkg']
+        - name: 'package:sifive-sifive'
+          keys: ['Silicon/SiFive/SiFive']
+        - name: 'package:socionext-synquacer'
+          keys: ['Silicon/Socionext/SynQuacer']
+        - name: 'package:sophgo-sg2042pkg'
+          keys: ['Silicon/Sophgo/SG2042Pkg']
+        - name: 'package:synopsys-designware'
+          keys: ['SiliconSynopsys/DesignWare']
+        - name: 'package:texasinstruments-omap35xxpkg'
+          keys: ['Silicon/TexasInstruments/Omap35xxPkg']
+        - name: 'package:other'
+          keys: ['Other']

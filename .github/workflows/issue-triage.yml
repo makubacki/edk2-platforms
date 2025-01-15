@@ -73,7 +73,7 @@ jobs:
             if (packageLineIndex === -1) {
               process.exit(0);
             }
-            const packagesImpacted = issueLines[packageLineIndex + 2] : '';
+            const packagesImpacted = issueLines[packageLineIndex + 2];
             const packagesToAppend = packagesImpacted.split(',').map(pkg => `[${pkg.trim()}]`).join(' ');
             const newTitle = `${issue.data.title} - ${packagesToAppend}`;
 

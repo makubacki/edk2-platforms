@@ -71,8 +71,8 @@ jobs:
             const issueLines = issue.data.body.split('\n');
             const packagesLine = issueLines.find(line => line.includes('packages_impacted'));
             const packagesImpacted = packagesLine.split(': ')[1].trim();
-
-            const newTitle = `${packagesImpacted.split(',').map(pkg => `[${pkg.trim()}]`).join(' ')} - ${issue.data.title}`;
+            const packagesToPrepend = packagesImpacted.split(',').map(pkg => `[${pkg.trim()}]`).join(' ')
+            const newTitle = `${packagesToPrepend} - ${issue.data.title}`;
 
             await github.rest.issues.update({
               owner: context.repo.owner,

@@ -55,3 +55,28 @@ jobs:
           then
             gh issue edit ${{ github.event.issue.html_url }} --add-assignee ${{ github.event.issue.user.login }}
           fi
+
+      - name: Add Package Name to the Issue
+        id: issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue_number = context.issue.number;
+            const issue = await github.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+
+            const issueLines = issue.data.body.split('\n');
+            const packagesLine = issueLines.find(line => line.includes('packages_impacted'));
+            const packagesImpacted = packagesLine.split(': ')[1].trim();
+
+            const newTitle = `${packageImpacted.split(',').map(pkg => `[${pkg.trim()}]`).join(' ')} - ${issue.data.title}`;
+
+            await github.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              title: newTitle
+            });

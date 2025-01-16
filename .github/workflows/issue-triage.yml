@@ -57,7 +57,8 @@ jobs:
           fi
 
       - name: Add Package Name to the Issue
-        id: issue
+        # Only run once per worfklow run
+        if: ${{ matrix.template == 'bug_report.yml' }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -73,8 +74,11 @@ jobs:
             if (packageLineIndex === -1) {
               process.exit(0);
             }
-            const packagesImpacted = issueLines[packageLineIndex + 2];
-            const packagesToAppend = packagesImpacted.split(',').map(pkg => `[${pkg.trim()}]`).join(' ');
+            const packagesImpacted = issueLines[packageLineIndex + 2].split(',');
+            if (packagesImpacted.length > 3) {
+              process.exit(0);
+            }
+            const packagesToAppend = packagesImpacted.map(pkg => `[${pkg.trim()}]`).join(' ');
             const newTitle = `${issue.data.title} - ${packagesToAppend}`;
 
             await github.rest.issues.update({
